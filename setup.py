@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# encoding: utf-8
 '''
 Created on 26 Mar 2021
 
@@ -21,3 +23,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
+
+from setuptools import setup
+
+setup()
