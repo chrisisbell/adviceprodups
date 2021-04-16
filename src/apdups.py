@@ -28,7 +28,7 @@ import os
 
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-import main
+from libadviceprodups import main
 
 if __name__ == '__main__':
     sys.exit(main.main())
