@@ -113,7 +113,7 @@ class client(object):
     def sysid(self, sysid):
         try: 
             self._sysid=int(sysid)
-            if self._sysid <=0:
+            if self._sysid <= 0:
                 raise ValueError("Out of range")            
         except ValueError as e:
             self._sysid=0
