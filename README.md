@@ -5,7 +5,7 @@ Duplicate detection for AdvicePro (a UK web-based case management system)
 
 # Overview
 
-This program takes the output from an AdvicePro report and produces a list of validation errors suspected duplicate clients as a CSV file, which may be imported into a spreadsheet. The AdvicePro report *must* be in exactly the format specified below. If it is not, the program will report an error.
+This program takes the output from an AdvicePro report and produces a list of validation errors suspected duplicate clients as a CSV file, which may be imported into a spreadsheet. The AdvicePro report **must** be in exactly the format specified below. If it is not, the program will report an error.
 
 ## Validation Checks
 
@@ -34,20 +34,20 @@ Duplicate detection is partly based on hard tests and partly on fuzzy tests. The
 1. If any of the Agency Client Reference, NI Number, or Home Office Reference are present and the same, the clients are flagged as definite duplicates.
 1. The same Mobile Number, Main E-Mail Address, Postcode, or Date of Birth increases the probability of the client records being duplicates. (Dates of birth of the first of January are ignored for this comparison since this is used to flag that only the birth year is known.)
 1. If these fields when weighted cross a threshold, the two clients are reported as possible duplicates.
-1. Otherwise, if a fuzzy name match multiplied by the weighted matching scorr exceeds a threshold, the two clients are reported as possible duplicates.
+1. Otherwise, if a fuzzy name match multiplied by the weighted matching score exceeds a threshold, the two clients are reported as possible duplicates.
 
 # Running the Program
 
 From a command prompt, enter a command in the following form:
 
-> adviceprodups -o *otput file name* *input file name*
+> adviceprodups -o *output file name* *input file name*
 
 Where:
 
 * **output file name** is the location for the output file - the validation and duplicates report
 * **input file name** is the location of the CSV file produced by the AdvicePro report generator.
 
-The input file name is required. if no output file name is given (by omitting the -o opeion). the output will be sent to the standard output stream (*stdout*).
+The input file name is required. if no output file name is given (by omitting the -o option). the output will be sent to the standard output stream (*stdout*).
 
 
 # AdvicePro Report Format
