@@ -35,16 +35,16 @@ import time
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
-from parseapcsv import parseapcsv
-from validate import validate
-from deduplicate import deduplicate
+from .parseapcsv import parseapcsv
+from .validate import validate
+from .deduplicate import deduplicate
 
 __all__ = ["main"]
 __version__ = 0.1
 __date__ = '2021-03-05'
 __updated__ = '2021-03-16'
 
-DEBUG = 0
+DEBUG = 1
 
 class CLIError(Exception):
     '''Generic exception to raise and log different fatal errors.'''
@@ -92,19 +92,25 @@ USAGE
         argparser.add_argument(dest="path", help="path to file containing the raw data [default: %(default)s]", metavar="CSV export file from AdvicePro")
 
         # Process arguments
-        args = argparser.parse_args()            
-
+        args = argparser.parse_args()
+        
         print("Reading input", file=sys.stderr)
         parser = parseapcsv(args.path)
         recs = parser.readall()
-        
-        print("Validating", file=sys.stderr)
-        validator = validate(args.output)
-        validator.write(recs)
-        
-        print("Duplicate detection", file=sys.stderr)
-        deduplicator = deduplicate(args.output)
-        deduplicator.write(recs)
+            
+        f = sys.stdout if args.output is None else open(args.output, 'w', newline='')
+        try:            
+            print("Validating", file=sys.stderr)
+            validator = validate(f)
+            validator.write(recs)
+            
+            print("Duplicate detection", file=sys.stderr)
+            deduplicator = deduplicate(f)
+            deduplicator.write(recs)
+        finally:
+            if f != sys.stdout:
+                f.close()
+            
         end_cpu = time.process_time()
         end_real = time.time()
         print("Completed in %4g CPU seconds and %4g clock seconds" % (end_cpu - start_cpu, end_real - start_real), file=sys.stderr)

@@ -28,7 +28,7 @@ import inspect
 
 from fuzzywuzzy import fuzz
 
-from client import validationfields
+from .client import validationfields
 
 class deduplicate(object):
     '''
@@ -36,12 +36,11 @@ class deduplicate(object):
     '''
 
 
-    def __init__(self ,outpath, openmode="a"):
+    def __init__(self ,fp):
         '''
         Constructor
         '''
-        self.outpath = outpath
-        self.openmode = openmode
+        self.fp = fp
         self.dups = {}
         self.fuzzycount = 0
         
@@ -49,21 +48,20 @@ class deduplicate(object):
         """
         Write duplicate client records to the output file (sdtout if not specified) as CSV
         """
-        with sys.stdout if self.outpath is None else open(self.outpath, self.openmode, newline='') as f:
-            writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-            # Write headers           
-            writer.writerow([])
-            writer.writerow(["Possible duplicates"])
-            writer.writerow([validationfields[0] + " 1", validationfields[1] + " 1", validationfields[0] + " 2", validationfields[1] + " 2", validationfields[5] + " 1", validationfields[5] + " 2", "Score", "Reasons"])
-            for i in range(0, len(recs) - 1):
-                target = recs[i]
-                for j in range(i + 1, len(recs)):
-                    cand = recs[j]
-                    score, reasons = self.similarity(cand, target)
-                    if score >= 0.3:
-                        writer.writerow([target.sysid, target.clientid, cand.sysid, cand.clientid, target.ncases, cand.ncases, int(score * 100), ", ".join(reasons)])
-                        #print(int(score * 100), '"' + cand.name + '"' , '"' +target.name + '"', reasons)
-            print("No. of fuzzy matches", self.fuzzycount, file=sys.stderr)
+        writer = csv.writer(self.fp, quoting=csv.QUOTE_NONNUMERIC)
+        # Write headers           
+        writer.writerow([])
+        writer.writerow(["Possible duplicates"])
+        writer.writerow([validationfields[0] + " 1", validationfields[1] + " 1", validationfields[0] + " 2", validationfields[1] + " 2", validationfields[5] + " 1", validationfields[5] + " 2", "Score", "Reasons"])
+        for i in range(0, len(recs) - 1):
+            target = recs[i]
+            for j in range(i + 1, len(recs)):
+                cand = recs[j]
+                score, reasons = self.similarity(cand, target)
+                if score >= 0.3:
+                    writer.writerow([target.sysid, target.clientid, cand.sysid, cand.clientid, target.ncases, cand.ncases, int(score * 100), ", ".join(reasons)])
+                    #print(int(score * 100), '"' + cand.name + '"' , '"' +target.name + '"', reasons)
+        print("No. of fuzzy matches", self.fuzzycount, file=sys.stderr)
             
     def similarity(self, a, b):
         """

@@ -23,7 +23,7 @@ limitations under the License.
 '''
 
 import csv
-from client import client
+from .client import client
 
 correctheader = ['System Client ID', 'Agency Client Reference', 'Surname, Forename', 'Gender', 'NI Number', 'Home Office Reference', 'Mobile Number', 'Main E-Mail Address', 'Postcode', 'Date of Birth', 'Number of Cases']
 

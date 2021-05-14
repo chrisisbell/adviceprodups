@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 '''
-Created on 16 Mar 2021
+Created on 12 Feb 2021
 
 @author: Chris Isbell
 
@@ -23,12 +22,3 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-
-from libadviceprodups import main
-
-if __name__ == '__main__':
-    sys.exit(main.main())
