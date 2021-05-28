@@ -56,7 +56,7 @@ An AdvicePro report containing the following fields in specified order is requir
 
 ![Report Generator Image](docs/images/report_fields.png)
 
-Because AdvicePro does not currently (April 2021) support export and import of reports, this will need to be recreated for every installation.
+Because AdvicePro does not currently (April 2021) support export and import of reports, this report will need to be recreated for every installation.
 
 The fields are:
 
@@ -75,3 +75,9 @@ The fields are:
 Report filters should generally be left empty, but may be used to select a subset of clients for duplicate detection.
 
 The output format must be set to "CSV" when the report is run. (Ignore any warning about the lack of filters.) 
+
+# Installation
+## Windows
+
+1. Install Python from https://www.python.org/downloads/windows/ (The version used for testing was V3.8.9, Windows 64-bit.)
+1. Run the Windows installation package.
