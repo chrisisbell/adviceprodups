@@ -35,9 +35,9 @@ import time
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
-from .parseapcsv import parseapcsv
-from .validate import validate
-from .deduplicate import deduplicate
+from parseapcsv import parseapcsv
+from validate import validate
+from deduplicate import deduplicate
 
 __all__ = ["main"]
 __version__ = 0.1

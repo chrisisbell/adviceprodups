@@ -25,7 +25,7 @@ limitations under the License.
 
 import sys
 
-from aplib.main import main
+from main import main
 
 if __name__ == '__main__':
     sys.exit(main())

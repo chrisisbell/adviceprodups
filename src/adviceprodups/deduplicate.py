@@ -28,7 +28,7 @@ import inspect
 
 from fuzzywuzzy import fuzz
 
-from .client import validationfields
+from client import validationfields
 
 class deduplicate(object):
     '''
