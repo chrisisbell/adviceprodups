@@ -26,7 +26,7 @@ import sys
 import csv
 import time
 
-from client import validationfields
+#from client import validationfields
 
 class validate(object):
     '''
