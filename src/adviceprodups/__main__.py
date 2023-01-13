@@ -456,9 +456,9 @@ class parseapcsv(object):
                 
         return self.records        
 
-__version__ = 0.1
+__version__ = '1.1'
 __date__ = '2021-03-05'
-__updated__ = '2021-03-16'
+__updated__ = '2023-01-13'
 
 DEBUG = 1
 
