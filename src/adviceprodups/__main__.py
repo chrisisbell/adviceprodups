@@ -4,7 +4,7 @@ Created on 16 Mar 2021
 
 @author: Chris Isbell
 
-@copyright:  2021 CLEAR Project (UK Charity No. 1100602). All rights reserved.
+@copyright:  2021-23 CLEAR Project (UK Charity No. 1100602). All rights reserved.
 
 @license:    Apache
 
@@ -52,7 +52,7 @@ def tidyspaces(strng):
     """
     return " ".join(strng.split())
     
-genderdict = {"Male": "Male", "Female": "Female", "[Not Specified]": "unknown"}
+genderdict = {"Male": "Male", "Female": "Female", "Non-binary": "Non-binary", "[Not Specified]": "unknown"}
 
 # Regular expression to match National Insurance number
 nimatch = re.compile("^[A-CEGHJ-PR-TW-Z]{1}[A-CEGHJ-NPR-TW-Z]{1}[0-9]{6}[A-DFM]{1}$")
@@ -176,6 +176,7 @@ class client(object):
             self._gender = genderdict[gender]
         except KeyError:
             self.__valerr("Gender", gender, "Not an allowed value")
+            self._gender = "unknown"
             
     @property
     def ni(self):
@@ -208,8 +209,9 @@ class client(object):
             self._horef = horef.strip().upper().replace(" ", "")
             if len(self._horef) == 0:
                 return
-            if not horefmatch.match(self._horef):
-                raise ValueError("Malformed")
+        # Various references are used, so do not validate
+        #     if not horefmatch.match(self._horef):
+        #         raise ValueError("Malformed")
         except ValueError as e:
             self.__valerr("Home Office Reference", horef, str(e))
 
@@ -371,6 +373,9 @@ class deduplicate(object):
         of strings detailing the reasons for the match.
         """
         reasons = []
+        if a.ncases == 0 and b.ncases == 0:
+            return 0.0, []  # Ignore where both clients have no cases
+        
         if a.gender != b.gender and a.gender != "unknown":
             return 0.0, []   # Different genders - almost certainly not a duplicate
 
@@ -484,7 +489,7 @@ def main(argv=None): # IGNORE:C0111
     program_license = '''%s
 
   Created by Chris Isbell on %s.
-  Copyright 2021 CLEAR Project (UK Charity No. 1100602). All rights reserved.
+  Copyright 2021-23 CLEAR Project (UK Charity No. 1100602). All rights reserved.
 
   Licensed under the Apache License 2.0
   http://www.apache.org/licenses/LICENSE-2.0

@@ -16,12 +16,11 @@ The following validation checks are performed.
 * Client name must not be empty
 * Gender must be "Male", "Female", or "[Not Specified]"
 * NI Number must be in the correct format, or empty
-* Home Office Reference must be in the correct format, or empty
 * Mobile Number must be in a valid format, or empty (see below)
 * Main E-Mail Address must be in a valid format, or empty
 * Postcode must be in a valid format, or empty
 * Date of Birth must be a valid date in the last 150 years, or empty
-* Number of Cases must be a positive integer
+* Number of Cases must be a non-negative integer
 
 The mobile number is validated by removing and non-numeric characters. It must then start with 447, 07, or 7 and contain the correct  number of digits.
 
